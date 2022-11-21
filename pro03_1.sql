@@ -33,6 +33,7 @@ CREATE TABLE USER(
 	regdate DATETIME DEFAULT NOW()
 );
 
+
 CREATE TABLE tour(
 	no INT PRIMARY KEY AUTO_INCREMENT, 
 	tourno varchar(20), 
@@ -44,6 +45,17 @@ CREATE TABLE tour(
 	visited INT DEFAULT 0
 );
 desc tour;
+ALTER TABLE tour ADD COLUMN addr VARCHAR(200);
 create table pic(no INT PRIMARY KEY AUTO_INCREMENT, tourno varchar(10) not null, picname varchar(30), pos int default 1);
 desc pic;
 COMMIT;
+
+create table impress(
+	no int primary key auto_increment, 
+	cate varchar(20), 
+	tourno varchar(20), 
+	id varchar(30),
+	content varchar(500), 
+	esti varchar(20),  
+	regdate DATETIME DEFAULT NOW() 
+);

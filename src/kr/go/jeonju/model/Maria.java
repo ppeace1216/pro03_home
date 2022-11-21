@@ -7,11 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Maria {
-	static String DRIVER = "com.mysql.cj.jdbc.Driver";
-	static String URL = "jdbc:mysql://localhost:3306/jeonju?serverTimezone=Asia/Seoul";
-	static String USER = "root";
-	static String PASS = "a1234";
-
+    static final String DRIVER = "org.mariadb.jdbc.Driver";
+    static final String URL = "jdbc:mysql://localhost:3306/jeonju?serverTimezone=Asia/Seoul";
+    static final String USER = "root";
+    static final String PW = "1234";
+    
+	public final static String TEST_SELECT_ONE = "select * from test where name=?";
+	public final static String TEST_SELECT_ALL = "select * from test";
+    
 	final static String NOTICE_SELECT_ALL = "select * from notice order by regdate desc";
 	final static String NOTICE_VISITED_UPDATE = "update notice set visited = visited + 1 where no=?";
 	final static String NOTICE_SELECT_ONE = "select * from notice where no=?";
@@ -27,12 +30,28 @@ public class Maria {
 	final static String USER_VISIT_UPDATE = "update user set visted=visted+1 where id=?";
 	final static String USER_DELETE = "delete from user where id=?";
 	
-	public final static String TEST_SELECT_ONE = "select * from test where name=?";
-	public final static String TEST_SELECT_ALL = "select * from test";
+	final static String LOAD_LAST_NO = "select no from tour order by no desc limit 1";
+	final static String FILE_UPLOAD = "insert into pic(tourno, picname, pos) values (?,?,?)";
+	final static String JSON_PICLIST = "select * from pic where tourno=?";
+	final static String ADD_TOUR = "insert into tour(tourno, cate, title, subtitle, content, addr) values (?,?,?,?,?,?)";
+	final static String TOUR_LIST_ALL = "select * from tour";
+	final static String TOUR_CATE_LIST = "select a.no, a.tourno, a.cate, a.title, a.subtitle, a.content, b.picname, b.pos from tour a inner join pic b on a.tourno=b.tourno where a.cate=? and b.pos=1";
+	final static String TOUR_VISITED_UPDATE = "update tour set visited = visited + 1 where no=?";
+	
+	final static String TOUR_SEARCH_title_LIST = "select * from tour where title like CONCAT('%',?,'%')"; //'%'+?+'%'
+	final static String TOUR_SEARCH_COMMENT_LIST = "select * from tour where content like ?";
+	final static String TOUR_SEARCH_ALL_LIST = "select * from tour where title like ? or content like ?";
+	final static String TOUR_LIST_DETAIL = "select * from tour where no=?";
+	final static String TOUR_DEL = "delete from tour where no=?";
+	final static String MODIFY_TOUR = "update tour set tourno=?, cate=?, title=?, subtitle=?, content=?, addr=? where no=?";
+	
+	
+	final static String ADD_IMP = "insert into impress(tourno, cate, id, title, content, star, imgSrc) values (?,?,?,?,?,?,?)";
+	
 	
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		Class.forName(DRIVER);
-		Connection con = DriverManager.getConnection(URL, USER, PASS);
+		Connection con = DriverManager.getConnection(URL, USER, PW);
 		return con;
 	}
 	

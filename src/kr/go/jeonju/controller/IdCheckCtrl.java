@@ -14,7 +14,7 @@ import kr.go.jeonju.model.UserDAO;
 import org.json.JSONObject;
 
 
-@WebServlet("/IdChecCtrl.do")
+@WebServlet("/IdCheckCtrl.do")
 public class IdCheckCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
